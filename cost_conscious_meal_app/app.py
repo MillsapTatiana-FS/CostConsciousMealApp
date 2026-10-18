@@ -1,6 +1,11 @@
 import streamlit as st
 from store_simulation import load_store_data, get_store_items
 from meal_mapping import get_ingredients
+from shopping_simulation import (
+    generate_manual_basket,
+    generate_app_basket,
+    summarize_basket
+)
 
 st.title("Nutritional Cost-Conscious Meal App — Week 2")
 
@@ -29,3 +34,23 @@ st.write(f"Ingredients for {meal}")
 st.dataframe(meal_df[["item", "price", "star_rating", "health_per_penny"]])
 
 st.success("Week 2 functionality loaded successfully!")
+
+st.header("Week 3 — Comparative Shopping Simulation")
+
+# Generate baskets
+manual_basket = generate_manual_basket()
+app_basket = generate_app_basket()
+
+# Summaries
+manual_summary = summarize_basket(manual_basket)
+app_summary = summarize_basket(app_basket)
+
+st.subheader("Manual Basket (Price-Only Selection)")
+st.dataframe(manual_basket[["item", "store", "price", "star_rating", "health_per_penny"]])
+st.write(manual_summary)
+
+st.subheader("App-Assisted Basket (Nutrient-Dense Selection)")
+st.dataframe(app_basket[["item", "store", "price", "star_rating", "health_per_penny"]])
+st.write(app_summary)
+
+st.success("Week 3 shopping simulation completed!")

@@ -1,53 +1,31 @@
 import streamlit as st
-import pandas as pd
-from nrf_engine import NRFEngine
+from store_simulation import load_store_data, get_store_items
+from meal_mapping import get_ingredients
 
-st.title("Nutritional Cost-Conscious Meal App — Week 2 Expanded")
+st.title("Nutritional Cost-Conscious Meal App — Week 2")
 
 # Load full dataset
-df = pd.read_csv("data/all_stores_items.csv")
+df = load_store_data()
 
-engine = NRFEngine()
+st.subheader("Star-Rated Grocery Items Across All Stores")
 
-# Compute scores
-df["nrf_raw"] = df.apply(engine.compute_nrf_score, axis=1)
-df["stars"] = df["nrf_raw"].apply(engine.normalize_score)
-df["health_per_penny"] = df["nrf_raw"] / df["price"]
+stores = df["store"].unique()
+selected_store = st.selectbox("Choose a store:", stores)
 
-# Store selector
-store_choice = st.selectbox("Select a Store", df["store"].unique())
+store_df = get_store_items(selected_store)
 
-filtered = df[df["store"] == store_choice]
+st.write(f"Items at {selected_store}")
+st.dataframe(store_df[["item", "price", "star_rating", "health_per_penny"]])
 
-# Highlight nutritional winners
-def highlight_row(row):
-    if row["stars"] >= 4:
-        return "background-color: #c8e6c9"  # green
-    elif row["stars"] == 3:
-        return "background-color: #fff9c4"  # yellow
-    else:
-        return "background-color: #ffcdd2"  # red
+# Meal Mapping Section
+st.subheader("Ingredient Mapping for Staple Meals")
 
-styled_table = filtered.style.apply(
-    lambda row: [highlight_row(row)] * len(row),
-    axis=1
-)
+meal = st.selectbox("Choose a meal:", ["Bean Tacos", "Vegetable Pasta", "Egg Protein Bowl"])
+ingredients = get_ingredients(meal)
 
-st.subheader(f"Nutritional Rankings — {store_choice}")
-st.dataframe(styled_table)
+meal_df = df[df["item"].isin(ingredients)]
 
-# Ingredient mapping for staple meals
-st.subheader("Staple Meal Ingredient Mapping")
+st.write(f"Ingredients for {meal}")
+st.dataframe(meal_df[["item", "price", "star_rating", "health_per_penny"]])
 
-meals = {
-    "Bean-Based Tacos": ["Black Beans (canned)", "Tortillas", "Spinach (bag)"],
-    "Vegetable Pasta": ["Pasta", "Frozen Broccoli", "Tomato Sauce"],
-    "Egg Protein Bowl": ["Eggs (dozen)", "Spinach (bag)", "Peanut Butter"]
-}
-
-meal_choice = st.selectbox("Select a Meal", meals.keys())
-
-meal_items = df[df["item"].isin(meals[meal_choice])]
-
-st.write(f"Ingredients for **{meal_choice}**:")
-st.dataframe(meal_items[["item", "store", "price", "stars", "health_per_penny"]])
+st.success("Week 2 functionality loaded successfully!")

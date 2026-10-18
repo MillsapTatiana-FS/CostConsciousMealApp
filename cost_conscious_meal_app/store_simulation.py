@@ -16,3 +16,5 @@ def load_store_data():
     return df
 
 def get_store_items(store_name):
+    df = load_store_data()
+    return df[df["store"] == store_name].sort_values(by="star_rating", ascending=False)

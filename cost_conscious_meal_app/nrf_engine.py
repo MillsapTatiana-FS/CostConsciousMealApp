@@ -4,7 +4,7 @@ class NRFEngine:
     def __init__(self):
         # Beneficial nutrients (NRF9)
         self.good_nutrients = ["protein", "fiber", "vitamin_c", "calcium"]
-        
+
         # Limiting nutrients (NRF3)
         self.bad_nutrients = ["sugar", "sodium", "saturated_fat"]
 
@@ -26,3 +26,16 @@ class NRFEngine:
             return 4
         else:
             return 5
+
+
+# Create engine instance
+engine = NRFEngine()
+
+
+# Functions expected by store_simulation.py
+def compute_nrf_score(row):
+    return engine.compute_nrf_score(row)
+
+
+def convert_to_star_rating(raw_score):
+    return engine.normalize_score(raw_score)

@@ -48,3 +48,27 @@ def summarize_basket(df):
         "total_nrf_score": df["nrf_score"].sum(),
         "average_star_rating": df["star_rating"].mean()
     }
+
+def compare_baskets(manual_df, app_df):
+
+    manual_score = manual_df["nrf_score"].sum()
+    app_score = app_df["nrf_score"].sum()
+
+    improvement = (
+        (app_score - manual_score)
+        / abs(manual_score)
+    ) * 100
+
+    cost_difference = (
+        (app_df["price"].sum() - manual_df["price"].sum())
+        / manual_df["price"].sum()
+    ) * 100
+
+    return {
+        "manual_score": manual_score,
+        "app_score": app_score,
+        "improvement_percent": improvement,
+        "manual_cost": manual_df["price"].sum(),
+        "app_cost": app_df["price"].sum(),
+        "cost_difference_percent": cost_difference
+    }

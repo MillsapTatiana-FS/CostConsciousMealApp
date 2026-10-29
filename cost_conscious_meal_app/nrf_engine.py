@@ -6,13 +6,21 @@ class NRFEngine:
         self.good_nutrients = ["protein", "fiber", "vitamin_c", "calcium"]
 
         # Limiting nutrients (NRF3)
-        self.bad_nutrients = ["sugar", "sodium", "saturated_fat"]
+        self.bad_nutrients = ["sugar", "sodium", "sat_fat"]
 
     def compute_nrf_score(self, row):
         good_sum = sum([row[n] for n in self.good_nutrients])
         bad_sum = sum([row[n] for n in self.bad_nutrients])
-        raw_score = good_sum - bad_sum
-        return raw_score
+
+        print(
+            row["item"],
+            "Good:", good_sum,
+            "Bad:", bad_sum,
+            "Score:", good_sum - bad_sum
+        )
+
+        return good_sum - bad_sum
+
 
     def normalize_score(self, raw_score):
         # Simple normalization to 1–5 stars

@@ -2,8 +2,7 @@ import pandas as pd
 from nrf_engine import compute_nrf_score, convert_to_star_rating
 
 def load_store_data():
-    df = pd.read_csv("data/all_stores_items.csv")
-    
+    df = pd.read_csv("data/meal_ingredients_comparison.csv")    
     # Compute NRF9.3 score
     df["nrf_score"] = df.apply(compute_nrf_score, axis=1)
     

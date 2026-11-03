@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
 from store_simulation import load_store_data, get_store_items
 from meal_mapping import get_ingredients
 from shopping_simulation import (
@@ -29,7 +31,19 @@ st.subheader("Ingredient Mapping for Staple Meals")
 meal = st.selectbox("Choose a meal:", ["Bean Tacos", "Vegetable Pasta", "Egg Protein Bowl"])
 ingredients = get_ingredients(meal)
 
-meal_df = df[df["item"].isin(ingredients)]
+meal_items = []
+
+for ingredient in ingredients:
+    matches = df[
+        df["item"].str.contains(
+            ingredient,
+            case=False,
+            na=False
+        )
+    ]
+    meal_items.append(matches)
+
+meal_df = pd.concat(meal_items)
 
 st.write(f"Ingredients for {meal}")
 st.dataframe(meal_df[["item", "price", "star_rating", "health_per_penny"]])
@@ -43,7 +57,50 @@ st.header("Comparative Shopping Simulation")
 manual_df = generate_manual_basket()
 app_df = generate_app_basket()
 
-comparison = compare_baskets(manual_df, app_df)
+comparison = compare_baskets(
+    manual_df,
+    app_df
+)
+st.subheader("Basket Comparison")
+
+comparison_df = pd.DataFrame({
+    "Metric": [
+        "Cost",
+        "NRF Score"
+    ],
+    "Manual Basket": [
+        comparison["manual_cost"],
+        comparison["manual_score"]
+    ],
+    "App Basket": [
+        comparison["app_cost"],
+        comparison["app_score"]
+    ]
+})
+
+st.table(comparison_df)
+
+
+st.subheader("NRF Score Comparison")
+
+fig, ax = plt.subplots(figsize=(8,4))
+
+scores = [
+    comparison["manual_score"],
+    comparison["app_score"]
+]
+
+labels = [
+    "Manual Basket",
+    "App Basket"
+]
+
+ax.bar(labels, scores)
+
+ax.set_ylabel("NRF Score")
+ax.set_title("Manual vs App-Assisted Shopping")
+
+st.pyplot(fig)
 
 # Summaries
 manual_summary = summarize_basket(manual_df)
@@ -53,7 +110,7 @@ comparison = compare_baskets(manual_df, app_df)
 st.write("Comparison Dictionary:")
 st.write(comparison)
 
-st.subheader("Comparison Results")
+st.subheader("Detailed Metrics")
 
 st.write(f"Manual Basket Cost: ${comparison['manual_cost']:.2f}")
 st.write(f"App Basket Cost: ${comparison['app_cost']:.2f}")

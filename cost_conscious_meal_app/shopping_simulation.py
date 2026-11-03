@@ -10,7 +10,13 @@ def generate_manual_basket():
     for meal in ["Bean Tacos", "Vegetable Pasta", "Egg Protein Bowl"]:
         ingredients = get_ingredients(meal)
         for ingredient in ingredients:
-            item_df = df[df["item"] == ingredient]
+            item_df = df[
+                df["item"].str.contains(
+                    ingredient, 
+                    case=False,
+                    na=False
+                )
+            ]
             if not item_df.empty:
                 cheapest = item_df.sort_values("price").iloc[0]
                 basket_items.append(cheapest)
@@ -31,7 +37,7 @@ def generate_app_basket():
             if not item_df.empty:
                 best_item = (
                     item_df.sort_values(
-                        ["star_rating", "health_per_penny"],
+                        ["nrf_score", "health_per_penny"],
                         ascending=[False, False]
                     ).iloc[0]
                 )

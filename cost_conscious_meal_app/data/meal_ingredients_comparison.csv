@@ -1,0 +1,24 @@
+store,item,price,protein,fiber,vitamin_c,calcium,sugar,sodium,sat_fat
+Aldi,Black Beans (canned),1.19,7,5,0,3,1,200,0
+Local Market,Black Beans (canned),1.49,8,6,0,4,1,120,0
+Premium Grocer,Black Beans (organic),2.29,9,8,0,5,1,90,0
+
+Aldi,Frozen Broccoli,1.49,3,3,60,4,1,30,0
+Big Box Retailer,Frozen Broccoli,1.79,4,4,65,5,1,20,0
+Premium Grocer,Organic Broccoli,2.99,5,5,75,6,1,10,0
+
+Aldi,Eggs (dozen),2.29,6,0,0,2,0,70,1
+Local Market,Eggs (dozen),2.79,7,0,0,3,0,65,1
+Premium Grocer,Cage-Free Eggs,4.29,8,0,0,4,0,55,1
+
+Big Box Retailer,Pasta,1.29,3,2,0,1,1,10,0
+Local Market,Whole Wheat Pasta,1.99,5,6,0,2,1,5,0
+Premium Grocer,Organic Whole Wheat Pasta,2.99,6,7,0,3,1,5,0
+
+Local Market,Tomato Sauce,1.39,2,2,20,2,4,380,0
+Big Box Retailer,Low Sodium Tomato Sauce,1.79,3,3,25,3,3,150,0
+Premium Grocer,Organic Tomato Sauce,2.49,3,4,25,4,2,90,0
+
+Big Box Retailer,Tortillas (pack),2.19,4,2,0,2,1,180,1
+Local Market,Whole Wheat Tortillas,2.69,5,5,0,3,1,120,1
+Premium Grocer,Organic Tortillas,3.29,6,6,0,4,1,90,1

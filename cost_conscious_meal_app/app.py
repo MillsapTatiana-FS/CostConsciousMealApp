@@ -8,7 +8,7 @@ from shopping_simulation import (
     compare_baskets
 )
 
-st.title("Nutritional Cost-Conscious Meal App — Week 2")
+st.title("Nutritional Cost-Conscious Meal App")
 
 # Load full dataset
 df = load_store_data()
@@ -34,9 +34,9 @@ meal_df = df[df["item"].isin(ingredients)]
 st.write(f"Ingredients for {meal}")
 st.dataframe(meal_df[["item", "price", "star_rating", "health_per_penny"]])
 
-st.success("Week 2 functionality loaded successfully!")
+st.success("Functionality loaded successfully!")
 
-st.header("Week 3 — Comparative Shopping Simulation")
+st.header("Comparative Shopping Simulation")
 
 # Generate baskets
 

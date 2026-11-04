@@ -1,18 +1,18 @@
 meal_ingredients = {
     "Bean Tacos": [
-        "Black Beans (canned)",
-        "Tortillas (pack)",
+        "Black Beans",
+        "Tortillas",
         "Tomato Sauce",
-        "Frozen Mixed Veggies"
+        "Broccoli"
     ],
     "Vegetable Pasta": [
         "Pasta",
         "Tomato Sauce",
-        "Frozen Mixed Veggies"
+        "Broccoli"
     ],
     "Egg Protein Bowl": [
-        "Eggs (dozen)",
-        "Spinach (bag)",
+        "Eggs",
+        "Spinach",
         "Tomatoes"
     ]
 }

@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 from store_simulation import load_store_data, get_store_items
 from meal_mapping import get_ingredients
 from shopping_simulation import (
@@ -119,3 +120,37 @@ st.write(f"Cost Difference: {comparison['cost_difference_percent']:.2f}%")
 st.write(f"Manual NRF Score: {comparison['manual_score']:.2f}")
 st.write(f"App NRF Score: {comparison['app_score']:.2f}")
 st.write(f"Nutritional Improvement: {comparison['improvement_percent']:.2f}%")
+
+st.subheader("Nutritional Score and Rating Comparison")
+
+products = ["Black Beans", "Spinach", "Tomatoes", "Pasta"]
+
+nrf_scores = [85, 92, 67, 35]
+star_ratings = [5, 5, 4, 2]
+
+x = np.arange(len(products))
+width = 0.35
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+ax.bar(
+    x - width/2,
+    nrf_scores,
+    width,
+    label="NRF Score"
+)
+
+ax.bar(
+    x + width/2,
+    star_ratings,
+    width,
+    label="Star Rating"
+)
+
+ax.set_title("Nutritional Score and Rating Comparison")
+ax.set_ylabel("Value")
+ax.set_xticks(x)
+ax.set_xticklabels(products)
+ax.legend()
+
+st.pyplot(fig)

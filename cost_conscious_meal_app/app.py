@@ -24,7 +24,35 @@ selected_store = st.selectbox("Choose a store:", stores)
 store_df = get_store_items(selected_store)
 
 st.write(f"Items at {selected_store}")
-st.dataframe(store_df[["item", "price", "star_rating", "health_per_penny"]])
+
+st.dataframe(
+    store_df[
+        ["item", "price", "star_rating", "health_per_penny"]
+    ]
+)
+
+with st.expander("Understanding Health-per-Penny"):
+    st.markdown("""
+    ### Health-per-Penny
+
+    This metric helps compare nutritional value and cost.
+
+    **Higher scores indicate better nutritional value for the money spent.**
+
+    You can use this metric alongside:
+
+    - Star Ratings
+    - NRF Scores
+    - Product Price
+
+    to identify healthier and more cost-effective grocery options.
+
+    **Example:**
+
+    A food with a Health-per-Penny score of 3.5 provides
+    more nutritional value per dollar than a food with
+    a score of 1.5.
+    """)
 
 # Meal Mapping Section
 st.subheader("Ingredient Mapping for Staple Meals")
@@ -48,6 +76,12 @@ meal_df = pd.concat(meal_items)
 
 st.write(f"Ingredients for {meal}")
 st.dataframe(meal_df[["item", "price", "star_rating", "health_per_penny"]])
+
+st.info(
+    "Tip: Items with higher Health-per-Penny scores "
+    "generally provide more nutritional value relative "
+    "to their cost."
+)
 
 st.success("Functionality loaded successfully!")
 

@@ -13,6 +13,21 @@ from shopping_simulation import (
 
 st.title("Nutritional Cost-Conscious Meal App")
 
+st.markdown("""
+### Application Overview
+
+The Nutritional Cost-Conscious Meal Dashboard helps you
+compare grocery products based on:
+
+- Nutritional quality
+- Cost
+- NRF Scores
+- Star Ratings
+- Health-per-Penny values
+
+The goal is to support healthier and more affordable
+grocery purchasing decisions.
+""")
 # Load full dataset
 df = load_store_data()
 
@@ -83,7 +98,7 @@ st.info(
     "to their cost."
 )
 
-st.success("Functionality loaded successfully!")
+st.success("Meal ingredients successfully mapped to available grocery products.")
 
 st.header("Comparative Shopping Simulation")
 
@@ -188,3 +203,17 @@ ax.set_xticklabels(products)
 ax.legend()
 
 st.pyplot(fig)
+
+st.divider()
+
+st.subheader("Future Enhancements")
+
+st.markdown("""
+Based on user feedback, future versions may include:
+
+- Meal Planning
+- Recipe Suggestions
+- Shopping List Generation
+- Mobile Accessibility
+- Personalized Recommendations
+""")
